@@ -41,8 +41,8 @@ ball.set_hpr(90, -60, 0)
 
 grid = base.loader.load_model('./the_grid/scene.gltf')
 grid.reparent_to(base.render)
-ball.writeBamFile('grid.bam')
-exit()
+# ball.writeBamFile('grid.bam')
+# exit()
 
 print(grid.get_tight_bounds())
 grid.set_scale(0.005)
