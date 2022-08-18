@@ -1,6 +1,7 @@
 from direct.showbase.ShowBase import ShowBase
 from panda3d.core import *
 from direct.interval.IntervalGlobal import *
+from direct.filter.CommonFilters import CommonFilters
 base = ShowBase()
 ball = base.loader.loadModel('ball.bam')
 ball.reparentTo(base.render)
@@ -20,50 +21,15 @@ grid = base.loader.loadModel('grid.bam')
 grid.reparentTo(base.render)
 grid.setScale(0.005)
 grid.setPos(grid.getTightBounds()[0][0]/2, 2, 15)
-spot.node().setShadowCaster(True)
-base.render.setShaderAuto()
-base.render.setDepthOffset(-3)
-spot.node().setShadowCaster(True, 8192, 8192)
 rotate_interval = LerpHprInterval(
     nodePath=ball,
     duration=5,
     hpr=(90, -60, 360)
 )
 rotate_interval.loop()
-ball_handle = base.render.attachNewNode('ball_handle')
-ball.reparentTo(ball_handle)
-ball_handle.reparentTo(base.render)
-move_right_interval = LerpPosInterval(
-    nodePath=ball_handle,
-    duration=2,
-    startPos=(-4, 0, 0),
-    pos=(+4, 0, 0)
-)
-move_left_interval = LerpPosInterval(
-    nodePath=ball_handle,
-    duration=2,
-    startPos=(+4, 0, 0),
-    pos=(-4, 0, 0)
-)
-move_sequence = Sequence(move_right_interval, move_left_interval)
-move_sequence.loop()
-jump_up_interval = LerpPosInterval(
-    nodePath=ball,
-    duration=.75,
-    startPos=(0, 17.5, -1.5),
-    pos=(0, 17.5, 3),
-    blendType='easeOut'
-)
-jump_down_interval = LerpPosInterval(
-    nodePath=ball,
-    duration=.75,
-    startPos=(0, 17.5, 3),
-    pos=(0, 17.5, -1.5),
-    blendType='easeIn'
-)
-jump_sequence = Sequence(jump_up_interval, jump_down_interval)
-jump_sequence.loop()
-
 base.setFrameRateMeter(True)
+filters = CommonFilters(base.win, base.cam)
+
+filters.setVolumetricLighting(caster=spot, density=0.5)
 
 base.run()
