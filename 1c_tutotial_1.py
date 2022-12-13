@@ -10,7 +10,6 @@ class MyApp(ShowBase):
         self.win.requestProperties(properties)
         self.scene = \
             self.loader.loadModel("models/environment")
-
         self.scene.reparentTo(self.render)
         self.disableMouse()
 
