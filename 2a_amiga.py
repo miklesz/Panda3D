@@ -1,6 +1,7 @@
 from direct.showbase.ShowBase import ShowBase
 from panda3d.core import *
 from direct.interval.IntervalGlobal import *
+from direct.filter.CommonFilters import CommonFilters
 loadPrcFileData("", "textures-power-2 none")
 loadPrcFileData("", "basic-shaders-only #t")
 base = ShowBase()
@@ -29,5 +30,14 @@ rotate_interval = LerpHprInterval(
 )
 rotate_interval.loop()
 base.setFrameRateMeter(True)
+filters = CommonFilters(base.win, base.cam)
+filters.setVolumetricLighting(
+    caster=spot,
+    numsamples=200,
+    density=0.1,
+    decay=0.98,
+)
+
+grid.setColorScale(1, 1, 1, 0)
 
 base.run()
