@@ -36,11 +36,11 @@ setup(
             ],
             # Platformy, dla których budujemy.
             # Usuńcie te, których nie chcecie.
-            "platforms": [
-                "manylinux2010_x86_64",
-                "macosx_10_9_x86_64",
-                "win_amd64"
-            ],
+            # "platforms": [
+            #     "manylinux2010_x86_64",
+            #     "macosx_10_9_x86_64",
+            #     "win_amd64"
+            # ],
             # Nazwa naszego pliku dziennika. Zachowujemy
             # krótką nazwę katalogu — nasz tytuł jest dość
             # długi — i umieszczamy plik w katalogu
